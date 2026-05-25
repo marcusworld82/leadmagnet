@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LYFE WITH MARCUS — Claude AI Mastery Kit</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #ffffff;
+    --card: #1c1c1c;
+    --accent: #cc0000;
+    --border: #000000;
+    --text-light: #f0f0f0;
+    --muted: #888888;
+  }
+  body { background: var(--bg); color: #111; font-family: 'Inter', sans-serif; }
+
+  /* TOP PREVIEW BAR */
+  .preview-bar {
+    background: #1c1c1c;
+    color: #f0f0f0;
+    padding: 10px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+  .preview-bar span { color: var(--muted); margin-right: 4px; }
+  .preview-tag {
+    border: 1px solid #444;
+    padding: 2px 10px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  /* HEADER */
+  .header {
+    border-bottom: 3px solid #000;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .header-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 0.06em;
+    color: #000;
+  }
+  .header-right { display: flex; gap: 10px; align-items: center; }
+  .badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 12px;
+    border: 2px solid #000;
+    letter-spacing: 0.05em;
+  }
+  .badge-count { background: #000; color: #fff; }
+  .badge-free { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+  /* NAV */
+  .nav-bar {
+    border-bottom: 3px solid #000;
+    display: flex;
+    overflow-x: auto;
+    background: #fff;
+    padding: 0 24px;
+    gap: 0;
+  }
+  .nav-tab {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    padding: 14px 20px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    white-space: nowrap;
+    text-transform: uppercase;
+    color: #555;
+    transition: color 0.15s, border-color 0.15s;
+    border-left: none; border-right: none; border-top: none;
+    background: none;
+  }
+  .nav-tab:hover { color: #000; }
+  .nav-tab.active { color: #000; border-bottom: 3px solid var(--accent); }
+
+  /* HERO */
+  .hero {
+    padding: 60px 24px 48px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+  .eyebrow {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    border: 2px solid var(--accent);
+    color: var(--accent);
+    padding: 4px 14px;
+    margin-bottom: 22px;
+  }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 8vw, 88px);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    color: #000;
+    margin-bottom: 18px;
+  }
+  .hero-title .highlight { color: var(--accent); }
+  .hero-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 18px;
+    letter-spacing: 0.04em;
+  }
+  .hero-body {
+    font-size: 16px;
+    line-height: 1.7;
+    color: #333;
+    max-width: 620px;
+    margin-bottom: 30px;
+  }
+  .hero-body strong { color: #000; }
+  .cta-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 14px 32px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .cta-btn:hover { opacity: 0.88; }
+
+  /* STATS BAR */
+  .stats-bar {
+    background: #000;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .stat-item {
+    flex: 1;
+    min-width: 160px;
+    padding: 28px 24px;
+    text-align: center;
+    border-right: 1px solid #333;
+  }
+  .stat-item:last-child { border-right: none; }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    color: var(--accent);
+    line-height: 1;
+    letter-spacing: 0.03em;
+  }
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: #888;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 6px;
+  }
+
+  /* SECTION WRAPPER */
+  .section-wrapper { display: none; }
+  .section-wrapper.active { display: block; }
+
+  /* CARDS GRID */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 40px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid #333;
+    padding: 24px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+    position: relative;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .card-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .card-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    border: 1px solid #444;
+    color: #aaa;
+    padding: 3px 10px;
+  }
+  .card-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    color: var(--text-light);
+    letter-spacing: 0.03em;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .card-desc {
+    font-size: 13px;
+    color: #999;
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid #333;
+    padding-top: 14px;
+    margin-top: 4px;
+  }
+  .card-hint {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: #555;
+    letter-spacing: 0.05em;
+  }
+  .copy-btn {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 6px 14px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .copy-btn:hover { opacity: 0.85; }
+  .copy-btn.copied { background: #228b22; }
+
+  /* DETAIL PANEL */
+  .detail-panel {
+    display: none;
+    border-left: 4px solid var(--accent);
+    background: #111;
+    margin: 0 24px 20px;
+    padding: 24px 28px;
+    max-width: calc(1200px - 48px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .detail-panel.open { display: block; }
+  .detail-pre {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    color: #ccc;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+  .detail-copy-row {
+    margin-top: 16px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  /* FOOTER */
+  .footer {
+    border-top: 3px solid #000;
+    padding: 24px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 40px;
+  }
+  .footer-brand {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 0.06em;
+    color: #000;
+  }
+  .footer-right {
+    text-align: right;
+  }
+  .footer-tagline {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+  }
+  .footer-link {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    display: block;
+    margin-top: 4px;
+  }
+  .footer-link:hover { text-decoration: underline; }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .hero { padding: 36px 16px 32px; }
+    .cards-grid { padding: 24px 12px; gap: 14px; }
+    .detail-panel { margin: 0 12px 16px; padding: 18px 16px; }
+    .nav-tab { padding: 12px 14px; font-size: 11px; }
+    .stats-bar { flex-direction: column; }
+    .stat-item { border-right: none; border-bottom: 1px solid #333; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP PREVIEW BAR -->
+<div class="preview-bar">
+  <span>INSIDE:</span>
+  <div class="preview-tag">01 — WHAT IS CLAUDE</div>
+  <div class="preview-tag">02 — HOW TO PROMPT</div>
+  <div class="preview-tag">03 — SKILLS EXPLAINED</div>
+  <div class="preview-tag">04 — SKILL CREATOR PROMPT</div>
+  <div class="preview-tag">05 — QUICK WINS</div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-brand">LYFE WITH MARCUS</div>
+  <div class="header-right">
+    <div class="badge badge-count">18 RESOURCES</div>
+    <div class="badge badge-free">FREE</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<div class="nav-bar">
+  <button class="nav-tab active" onclick="showSection('what-is-claude')">What Is Claude</button>
+  <button class="nav-tab" onclick="showSection('how-to-prompt')">How To Prompt</button>
+  <button class="nav-tab" onclick="showSection('skills-explained')">Skills Explained</button>
+  <button class="nav-tab" onclick="showSection('skill-creator')">Skill Creator Prompt</button>
+  <button class="nav-tab" onclick="showSection('quick-wins')">Quick Wins</button>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">Free AI Resource — Claude Mastery</div>
+  <div class="hero-title">
+    UNLOCK<br><span class="highlight">CLAUDE AI</span><br>LIKE A PRO
+  </div>
+  <div class="hero-sub">// The exact system Marcus uses every day to build faster with AI</div>
+  <div class="hero-body">
+    Most people use Claude like a search engine. <strong>That's leaving 90% of its power untouched.</strong> This free kit shows you exactly how to prompt Claude, build custom Skills, and even get the real Skill Creator prompt used to make new AI workflows from scratch.
+  </div>
+  <button class="cta-btn" onclick="document.getElementById('content-start').scrollIntoView({behavior:'smooth'})">
+    → Get The Full Kit
+  </button>
+</div>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">18</div>
+    <div class="stat-label">Resources Inside</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">5</div>
+    <div class="stat-label">Sections</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">1</div>
+    <div class="stat-label">Skill Creator Prompt</div>
+  </div>
+</div>
+
+<div id="content-start"></div>
+
+<!-- ===================== SECTION 1: WHAT IS CLAUDE ===================== -->
+<div class="section-wrapper active" id="section-what-is-claude">
+  <div class="cards-grid">
+
+    <div class="card" onclick="toggleDetail('c1')">
+      <div class="card-meta">
+        <div class="card-num">01</div>
+        <div class="card-tag">Basics</div>
+      </div>
+      <div class="card-title">What Is Claude?</div>
+      <div class="card-desc">Claude is Anthropic's AI assistant — think of it as your smartest, fastest collaborator who never sleeps and never judges your questions.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c1-content')">Copy</button>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleDetail('c2')">
+      <div class="card-meta">
+        <div class="card-num">02</div>
+        <div class="card-tag">Basics</div>
+      </div>
+      <div class="card-title">Claude vs ChatGPT</div>
+      <div class="card-desc">Claude tends to be better at nuanced writing, following long instructions, and staying on task. Both are powerful — but Claude shines for operators and builders.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c2-content')">Copy</button>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleDetail('c3')">
+      <div class="card-meta">
+        <div class="card-num">03</div>
+        <div class="card-tag">Access</div>
+      </div>
+      <div class="card-title">How To Access Claude</div>
+      <div class="card-desc">Go to claude.ai — free tier available. Claude Pro (~$20/mo) unlocks priority access and more usage. Claude API is for builders and developers.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c3-content')">Copy</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- DETAIL PANELS: SECTION 1 -->
+  <div class="detail-panel" id="detail-c1">
+    <pre class="detail-pre" id="c1-content">WHAT IS CLAUDE?
+
+Claude is an AI assistant made by Anthropic — a safety-focused AI company.
+
+It can:
+- Write, edit, and summarize text
+- Analyze documents and data
+- Write and debug code
+- Build workflows and automations
+- Answer complex research questions
+- Act as a thinking partner for decisions
+
+Think of Claude as the most capable assistant you've ever had — available 24/7, never forgets your context in a conversation, and gets smarter with better prompts.
+
+The key difference from a regular chatbot: Claude can follow long, complex instructions and maintain context across very long conversations.</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c1-content')">Copy Full Text</button>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="detail-c2">
+    <pre class="detail-pre" id="c2-content">CLAUDE VS CHATGPT — KEY DIFFERENCES
+
+Claude strengths:
+✓ Better at following long, detailed system prompts
+✓ More nuanced and natural writing style
+✓ Stronger reasoning on complex tasks
+✓ Larger context window (can handle huge documents)
+✓ Skills system lets you build reusable workflows
+
+ChatGPT strengths:
+✓ Larger plugin/tool ecosystem
+✓ Image generation (DALL·E integration)
+✓ Widely known — more tutorials online
+
+Bottom line: For building systems, writing, and AI-powered workflows — Claude is Marcus's go-to. Use both strategically.</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c2-content')">Copy Full Text</button>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="detail-c3">
+    <pre class="detail-pre" id="c3-content">HOW TO ACCESS CLAUDE
+
+Option 1 — Free (claude.ai)
+→ Go to claude.ai
+→ Sign up with email or Google
+→ Free tier gives limited daily usage
+→ Best for: Getting started, casual use
+
+Option 2 — Claude Pro ($20/month)
+→ Priority access even during peak hours
+→ More usage per day
+→ Access to newer/smarter models
+→ Best for: Daily users, content creators, operators
+
+Option 3 — Claude API (Developers)
+→ console.anthropic.com
+→ Pay per token used
+→ Best for: Building apps, automations, and Skills
+→ This is what powers custom Skills workflows
+
+Marcus's recommendation: Start free, upgrade to Pro once you're using it daily.</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c3-content')">Copy Full Text</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 2: HOW TO PROMPT ===================== -->
+<div class="section-wrapper" id="section-how-to-prompt">
+  <div class="cards-grid">
+
+    <div class="card" onclick="toggleDetail('c4')">
+      <div class="card-meta">
+        <div class="card-num">01</div>
+        <div class="card-tag">Prompting</div>
+      </div>
+      <div class="card-title">The Golden Prompt Formula</div>
+      <div class="card-desc">Role + Context + Task + Format = outputs that actually hit. Most people skip the first two and wonder why Claude gives generic answers.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c4-content')">Copy</button>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleDetail('c5')">
+      <div class="card-meta">
+        <div class="card-num">02</div>
+        <div class="card-tag">Prompting</div>
+      </div>
+      <div class="card-title">System Prompts 101</div>
+      <div class="card-desc">A system prompt is a set of instructions you give Claude before the conversation starts — like programming a custom AI persona or workflow.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c5-content')">Copy</button>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleDetail('c6')">
+      <div class="card-meta">
+        <div class="card-num">03</div>
+        <div class="card-tag">Prompting</div>
+      </div>
+      <div class="card-title">Prompt Mistakes To Avoid</div>
+      <div class="card-desc">Vague prompts, no context, asking too many things at once — these are the top 3 ways people get bad results and blame the AI.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c6-content')">Copy</button>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleDetail('c7')">
+      <div class="card-meta">
+        <div class="card-num">04</div>
+        <div class="card-tag">Advanced</div>
+      </div>
+      <div class="card-title">Chain Prompting</div>
+      <div class="card-desc">Break big tasks into smaller steps. Give Claude step 1, use its output as input for step 2. This is how you build multi-stage AI workflows.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c7-content')">Copy</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="detail-panel" id="detail-c4">
+    <pre class="detail-pre" id="c4-content">THE GOLDEN PROMPT FORMULA
+
+Structure every prompt like this:
+
+[ROLE] You are a [specific expert/persona].
+[CONTEXT] Here's the situation: [relevant background].
+[TASK] Your job is to [specific action verb] [specific output].
+[FORMAT] Format the response as [bullet list / table / paragraph / code].
+
+EXAMPLE:
+"You are an expert futures trading coach. I'm a beginner who just learned what a call option is. Explain how implied volatility affects option pricing in plain English. Use a simple analogy and keep it under 200 words."
+
+Why this works:
+- Role = Claude knows what expertise to channel
+- Context = Claude knows who it's talking to
+- Task = Clear deliverable
+- Format = You get exactly what you can use
+
+Practice this formula on everything for 1 week. Your Claude outputs will transform.</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c4-content')">Copy Full Text</button>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="detail-c5">
+    <pre class="detail-pre" id="c5-content">SYSTEM PROMPTS 101
+
+A system prompt runs silently before your conversation begins. It sets Claude's:
+- Persona (who it is)
+- Rules (what it will/won't do)
+- Goals (what it's optimizing for)
+- Style (how it communicates)
+
+BASIC SYSTEM PROMPT EXAMPLE:
+"You are Marcus's personal trading assistant. You help analyze trade setups using ICT methodology. Always ask for the timeframe and current price action before giving analysis. Keep responses concise — bullet points preferred. Never give financial advice, only technical analysis."
+
+WHERE TO SET SYSTEM PROMPTS:
+- Claude.ai Projects → Project Instructions (system prompt)
+- Claude API → system parameter
+- Custom Skills → frontmatter + SKILL.md body
+
+Pro tip: Save your best system prompts as templates. The same prompt, reused daily, compounds over time.</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c5-content')">Copy Full Text</button>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="detail-c6">
+    <pre class="detail-pre" id="c6-content">TOP PROMPT MISTAKES (AND HOW TO FIX THEM)
+
+MISTAKE 1: Too vague
+❌ "Write me something about trading."
+✅ "Write a 300-word Instagram caption about why retail traders always buy the top, using the concept of FOMO. Casual tone. End with a call to action."
+
+MISTAKE 2: No context
+❌ "Fix this."
+✅ "Fix this Python script — it should read a CSV and output the top 5 rows by revenue, but it's returning an error on line 12. Here's the code: [paste code]"
+
+MISTAKE 3: Too many tasks in one prompt
+❌ "Research crypto trends, write a report, make a tweet thread, and suggest a trading strategy."
+✅ Break into 4 separate prompts. Feed each output into the next step.
+
+MISTAKE 4: Skipping the format
+❌ Not specifying how you want the answer → you get a wall of text
+✅ Always end with: "Format as bullet points" or "Give me a table" or "Keep it under 150 words"</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c6-content')">Copy Full Text</button>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="detail-c7">
+    <pre class="detail-pre" id="c7-content">CHAIN PROMPTING — BUILD MULTI-STEP AI WORKFLOWS
+
+Chain prompting = treat Claude like an assembly line, not a vending machine.
+
+STEP-BY-STEP EXAMPLE (Content Creation Workflow):
+
+Step 1: "Research the top 5 reasons traders fail in their first year. Give me bullet points with brief explanations."
+
+[Take Claude's output → paste into Step 2]
+
+Step 2: "Using these 5 reasons, write an outline for a YouTube video script. Hook, 5 main points, CTA. Keep it tight."
+
+[Take outline → paste into Step 3]
+
+Step 3: "Write the full script for this YouTube video. Conversational tone. 8-10 minutes when read aloud. Add transitions between sections."
+
+WHY THIS WORKS:
+- Each step is focused → better quality output
+- You review and edit at each checkpoint
+- Complex work gets done in 20 minutes vs 3 hours
+- You maintain creative control at every stage
+
+This is the foundation of building Skills — automating these chains.</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c7-content')">Copy Full Text</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 3: SKILLS EXPLAINED ===================== -->
+<div class="section-wrapper" id="section-skills-explained">
+  <div class="cards-grid">
+
+    <div class="card" onclick="toggleDetail('c8')">
+      <div class="card-meta">
+        <div class="card-num">01</div>
+        <div class="card-tag">Skills</div>
+      </div>
+      <div class="card-title">What Is A Claude Skill?</div>
+      <div class="card-desc">A Skill is a reusable AI workflow saved as a file. When Claude detects a relevant task, it loads the Skill and follows its specialized instructions automatically.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c8-content')">Copy</button>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleDetail('c9')">
+      <div class="card-meta">
+        <div class="card-num">02</div>
+        <div class="card-tag">Skills</div>
+      </div>
+      <div class="card-title">Anatomy Of A Skill</div>
+      <div class="card-desc">Every Skill has a SKILL.md file with a name, description, and instructions. It can also include scripts, reference docs, and asset files.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c9-content')">Copy</button>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleDetail('c10')">
+      <div class="card-meta">
+        <div class="card-num">03</div>
+        <div class="card-tag">Skills</div>
+      </div>
+      <div class="card-title">When To Build A Skill</div>
+      <div class="card-desc">If you're repeating the same multi-step process more than 3 times a week, that's a Skill waiting to be built. Let Claude do it once, then use it forever.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c10-content')">Copy</button>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleDetail('c11')">
+      <div class="card-meta">
+        <div class="card-num">04</div>
+        <div class="card-tag">Skills</div>
+      </div>
+      <div class="card-title">The Skill Loop</div>
+      <div class="card-desc">Draft → Test → Evaluate → Improve → Repeat. Building a great Skill is an iterative process, just like training an athlete — you run it, review it, refine it.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c11-content')">Copy</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="detail-panel" id="detail-c8">
+    <pre class="detail-pre" id="c8-content">WHAT IS A CLAUDE SKILL?
+
+A Skill is a reusable, saved workflow that Claude can load and execute automatically when relevant.
+
+Think of it like a playbook. Instead of re-explaining your process every time, you write it once in a SKILL.md file. Claude reads it when needed and follows those specialized instructions.
+
+REAL EXAMPLES OF SKILLS:
+- A "Trade Journal Analyzer" Skill that takes your trade history CSV and generates a performance report
+- A "Content Repurposing" Skill that takes one YouTube transcript and outputs an email, tweet thread, and LinkedIn post
+- A "Lead Magnet Builder" Skill that turns raw content notes into a full HTML web app
+
+SKILL TRIGGERING:
+Claude reads the skill's description and decides when to use it. Good descriptions tell Claude: what the skill does AND when to use it.
+
+Skills = your personal AI automations. Build once, use forever.</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c8-content')">Copy Full Text</button>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="detail-c9">
+    <pre class="detail-pre" id="c9-content">ANATOMY OF A CLAUDE SKILL
+
+Every Skill is a folder with this structure:
+
+my-skill/
+├── SKILL.md          ← Required. The brain of the skill.
+└── (optional extras)
+    ├── scripts/      ← Python/bash scripts the skill can run
+    ├── references/   ← Docs Claude loads into context
+    └── assets/       ← Templates, icons, files used in output
+
+SKILL.MD STRUCTURE:
+
+---
+name: my-skill-name
+description: What this skill does and WHEN to use it. Be specific.
+---
+
+# Instructions
+
+[Your workflow instructions in plain markdown]
+
+## Output Format
+
+[Tell Claude exactly what the output should look like]
+
+## Examples
+
+[Optional: Input → Output examples]
+
+KEY RULE: Keep SKILL.md under 500 lines. If it's longer, move sections into references/ files and point to them from SKILL.md.</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c9-content')">Copy Full Text</button>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="detail-c10">
+    <pre class="detail-pre" id="c10-content">WHEN TO BUILD A CLAUDE SKILL
+
+BUILD A SKILL WHEN:
+✓ You do the same multi-step process 3+ times per week
+✓ You always have to re-explain your workflow to Claude from scratch
+✓ You want consistent, repeatable output quality
+✓ The task has objectively verifiable steps (data processing, code gen, report building)
+
+EXAMPLES OF SKILL-WORTHY WORKFLOWS:
+- Daily market summary from a list of tickers
+- Converting raw notes into formatted content (blogs, tweets, emails)
+- Analyzing trade data and generating a weekly performance review
+- Building lead magnets from content outlines (what Marcus does!)
+- Code review with specific quality standards
+
+DON'T BUILD A SKILL FOR:
+✗ One-time tasks
+✗ Very simple one-step requests (Claude handles these fine without a skill)
+✗ Highly subjective creative tasks where you want variety, not consistency
+
+Rule of thumb: If you've written the same system prompt more than 3 times — turn it into a Skill.</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c10-content')">Copy Full Text</button>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="detail-c11">
+    <pre class="detail-pre" id="c11-content">THE SKILL DEVELOPMENT LOOP
+
+This is the exact process for building a great Skill:
+
+STEP 1: CAPTURE INTENT
+Define what the skill should do. What triggers it? What's the output format?
+
+STEP 2: WRITE THE DRAFT
+Write your SKILL.md. Focus on instructions, output format, and examples.
+
+STEP 3: WRITE TEST CASES
+Create 2-3 realistic prompts a real user would type. Run Claude with the Skill on those prompts.
+
+STEP 4: EVALUATE RESULTS
+Look at the outputs. What worked? What was off? Grade the outputs — did they meet your criteria?
+
+STEP 5: IMPROVE THE SKILL
+Rewrite based on what you learned. Generalize the instructions. Explain the WHY behind every rule.
+
+STEP 6: REPEAT
+Run the test cases again. Compare to the previous iteration. Keep looping until the outputs consistently hit.
+
+STEP 7: OPTIMIZE THE DESCRIPTION
+Fine-tune the skill's description field so Claude knows exactly when to trigger it.
+
+The loop is: Draft → Test → Evaluate → Improve → Repeat.</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c11-content')">Copy Full Text</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 4: SKILL CREATOR PROMPT ===================== -->
+<div class="section-wrapper" id="section-skill-creator">
+  <div class="cards-grid">
+
+    <div class="card" onclick="toggleDetail('c12')">
+      <div class="card-meta">
+        <div class="card-num">01</div>
+        <div class="card-tag">Skill Creator</div>
+      </div>
+      <div class="card-title">What Is The Skill Creator?</div>
+      <div class="card-desc">The Skill Creator is a meta-skill — it's a skill that builds other skills. Marcus uses it to go from idea → fully tested, production-ready Claude Skill fast.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c12-content')">Copy</button>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleDetail('c13')">
+      <div class="card-meta">
+        <div class="card-num">02</div>
+        <div class="card-tag">Skill Creator</div>
+      </div>
+      <div class="card-title">How To Use The Prompt</div>
+      <div class="card-desc">Copy the full Skill Creator prompt, paste it as a system prompt or into a Claude Project. Then tell Claude what skill you want to build and let it guide you.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c13-content')">Copy</button>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleDetail('c14')">
+      <div class="card-meta">
+        <div class="card-num">03</div>
+        <div class="card-tag">🔑 THE PROMPT</div>
+      </div>
+      <div class="card-title">Full Skill Creator Prompt</div>
+      <div class="card-desc">The complete, unedited Skill Creator system prompt. This is the real one Marcus uses. Copy it, paste it, start building your own Claude Skills today.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand + copy</div>
+        <button class="copy-btn" onclick="copyText(event,'c14-content')">Copy</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="detail-panel" id="detail-c12">
+    <pre class="detail-pre" id="c12-content">WHAT IS THE SKILL CREATOR?
+
+The Skill Creator is a meta-skill — a skill that helps you build, test, and refine other Claude Skills.
+
+Instead of figuring out the skill-building process yourself, you load the Skill Creator and it walks you through:
+
+1. Capturing your intent (what do you want the skill to do?)
+2. Writing the SKILL.md draft
+3. Creating test cases to verify it works
+4. Evaluating outputs — both qualitatively and quantitatively
+5. Iterating and improving the skill
+6. Optimizing the description so Claude triggers the skill reliably
+
+WHO BUILT THIS?
+This is the official Skill Creator prompt from Anthropic's internal tooling — the same process used to build production-grade Claude Skills.
+
+WHY IT MATTERS:
+Without a structured process, most people write a skill once and wonder why it gives inconsistent results. The Skill Creator turns skill-building into a repeatable, testable system.
+
+The next card has the full prompt — copy it and use it today.</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c12-content')">Copy Full Text</button>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="detail-c13">
+    <pre class="detail-pre" id="c13-content">HOW TO USE THE SKILL CREATOR PROMPT
+
+STEP 1: COPY THE PROMPT
+Go to the "Full Skill Creator Prompt" card → click Copy.
+
+STEP 2: PASTE INTO CLAUDE
+Option A — Claude.ai Project:
+→ Open Claude.ai → Create a New Project
+→ Go to Project Instructions → paste the Skill Creator prompt
+→ This makes every conversation in that project use the Skill Creator
+
+Option B — Direct Conversation:
+→ Start a new Claude conversation
+→ Paste the prompt at the start, followed by:
+  "I want to build a skill that does [describe your workflow]."
+
+STEP 3: ANSWER CLAUDE'S QUESTIONS
+Claude will ask you to clarify:
+- What should the skill enable Claude to do?
+- When should it trigger?
+- What's the expected output format?
+Answer honestly — the more context you give, the better the skill.
+
+STEP 4: REVIEW THE DRAFT + TEST CASES
+Claude will write SKILL.md and suggest test prompts.
+Review them. Run the tests. Give feedback.
+
+STEP 5: ITERATE
+Keep refining until outputs hit your standard.
+Then package the skill and use it forever.</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c13-content')">Copy Full Text</button>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="detail-c14">
+    <pre class="detail-pre" id="c14-content">SKILL CREATOR — FULL SYSTEM PROMPT
+================================================
+(Copy everything below this line)
+================================================
+
+Skill Creator
+A skill for creating new skills and iteratively improving them.
+
+At a high level, the process of creating a skill goes like this:
+1. Decide what you want the skill to do and roughly how it should do it
+2. Write a draft of the skill
+3. Create a few test prompts and run claude-with-access-to-the-skill on them
+4. Help the user evaluate the results both qualitatively and quantitatively
+5. While the runs happen in the background, draft some quantitative evals if there aren't any (if there are some, you can either use as is or modify if you feel something needs to change about them). Then explain them to the user
+6. Use the eval-viewer/generate_review.py script to show the user the results for them to look at, and also let them look at the quantitative metrics
+7. Rewrite the skill based on feedback from the user's evaluation of the results
+8. Repeat until you're satisfied
+9. Expand the test set and try again at larger scale
+
+Your job when using this skill is to figure out where the user is in this process and then jump in and help them progress through these stages.
+
+---
+
+CAPTURING INTENT
+
+Start by understanding the user's intent. Ask:
+- What should this skill enable Claude to do?
+- When should this skill trigger? (what user phrases/contexts)
+- What's the expected output format?
+- Should we set up test cases to verify the skill works?
+
+---
+
+WRITING THE SKILL.MD
+
+Based on the user interview, fill in these components:
+
+name: Skill identifier
+description: When to trigger, what it does. This is the primary triggering mechanism — include both what the skill does AND specific contexts for when to use it. Make the description a little "pushy" to prevent undertriggering.
+
+SKILL FILE STRUCTURE:
+skill-name/
+├── SKILL.md (required)
+│   ├── YAML frontmatter (name, description required)
+│   └── Markdown instructions
+└── Bundled Resources (optional)
+    ├── scripts/    - Executable code for deterministic/repetitive tasks
+    ├── references/ - Docs loaded into context as needed
+    └── assets/     - Files used in output (templates, icons, fonts)
+
+PROGRESSIVE DISCLOSURE:
+- Metadata (name + description) — Always in context (~100 words)
+- SKILL.md body — In context whenever skill triggers (&lt;500 lines ideal)
+- Bundled resources — As needed (unlimited)
+
+---
+
+WRITING PATTERNS
+
+Prefer using the imperative form in instructions.
+
+Define output formats using exact templates:
+## Report structure
+ALWAYS use this exact template:
+# [Title]
+## Executive summary
+## Key findings
+## Recommendations
+
+Include examples formatted like this:
+## Commit message format
+Example 1:
+Input: Added user authentication with JWT tokens
+Output: feat(auth): implement JWT-based authentication
+
+---
+
+WRITING STYLE
+
+- Explain WHY things are important rather than using heavy-handed "MUST" statements
+- Use theory of mind — try to make the skill general, not narrow to specific examples
+- If you find yourself writing ALWAYS or NEVER in all caps, that's a yellow flag — reframe and explain the reasoning instead
+- Write a draft, then look at it with fresh eyes and improve it
+
+---
+
+TEST CASES
+
+After writing the skill draft, come up with 2-3 realistic test prompts — the kind of thing a real user would actually say. Share them with the user: "Here are a few test cases I'd like to try. Do these look right, or do you want to add more?" Then run them.
+
+Save test cases to evals/evals.json:
+{
+  "skill_name": "example-skill",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "User's task prompt",
+      "expected_output": "Description of expected result",
+      "files": []
+    }
+  ]
+}
+
+---
+
+THE IMPROVEMENT LOOP
+
+After reviewing results:
+1. Generalize from the feedback — don't overfit to specific examples
+2. Keep the prompt lean — remove things that aren't pulling their weight
+3. Explain the WHY behind everything you're asking the model to do
+4. Look for repeated work across test cases — if all runs wrote the same helper script, bundle it
+5. Apply improvements to the skill
+6. Rerun all test cases into a new iteration directory
+7. Wait for user review
+8. Repeat until the user is happy or feedback is consistently empty
+
+---
+
+DESCRIPTION OPTIMIZATION
+
+The description field is the primary mechanism that determines whether Claude invokes a skill. After creating or improving a skill, optimize the description for better triggering accuracy.
+
+Generate 20 eval queries — a mix of should-trigger and should-not-trigger. Focus on edge cases and near-misses rather than obvious cases.
+
+For should-trigger queries: different phrasings of the same intent, casual vs formal, implicit vs explicit requests.
+For should-not-trigger queries: adjacent domains, queries that share keywords but need something different.
+
+---
+
+COMMUNICATING WITH THE USER
+
+Pay attention to context cues to understand technical familiarity:
+- "evaluation" and "benchmark" — borderline, OK to use
+- "JSON" and "assertion" — explain these if you're not sure the user knows them
+- Brief term definitions are always welcome
+
+CORE LOOP:
+1. Figure out what the skill is about
+2. Draft or edit the skill
+3. Run claude-with-access-to-the-skill on test prompts
+4. With the user, evaluate the outputs
+5. Repeat until satisfied
+6. Package the final skill and return it to the user
+
+================================================
+(End of Skill Creator Prompt)
+================================================</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c14-content')">Copy Full Skill Creator Prompt</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== SECTION 5: QUICK WINS ===================== -->
+<div class="section-wrapper" id="section-quick-wins">
+  <div class="cards-grid">
+
+    <div class="card" onclick="toggleDetail('c15')">
+      <div class="card-meta">
+        <div class="card-num">01</div>
+        <div class="card-tag">Quick Win</div>
+      </div>
+      <div class="card-title">Your First Claude Project</div>
+      <div class="card-desc">Set up a Claude Project in 5 minutes with a system prompt tailored to your business. This single move will 10x your daily Claude quality.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c15-content')">Copy</button>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleDetail('c16')">
+      <div class="card-meta">
+        <div class="card-num">02</div>
+        <div class="card-tag">Quick Win</div>
+      </div>
+      <div class="card-title">Content In 15 Minutes</div>
+      <div class="card-desc">Marcus's exact chain prompt for turning one idea into a tweet thread, Instagram caption, and email — in under 15 minutes using Claude.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c16-content')">Copy</button>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleDetail('c17')">
+      <div class="card-meta">
+        <div class="card-num">03</div>
+        <div class="card-tag">Quick Win</div>
+      </div>
+      <div class="card-title">Build Your First Skill Today</div>
+      <div class="card-desc">The simplest possible first Skill: a content formatter that takes raw notes and outputs clean, formatted social content every single time.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c17-content')">Copy</button>
+      </div>
+    </div>
+
+    <div class="card" onclick="toggleDetail('c18')">
+      <div class="card-meta">
+        <div class="card-num">04</div>
+        <div class="card-tag">Quick Win</div>
+      </div>
+      <div class="card-title">The Daily AI Habit</div>
+      <div class="card-desc">The one-sentence framework Marcus uses every morning to stay ahead: "What am I doing today that Claude could do faster or better?" Then he delegates it.</div>
+      <div class="card-footer">
+        <div class="card-hint">Click to expand</div>
+        <button class="copy-btn" onclick="copyText(event,'c18-content')">Copy</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="detail-panel" id="detail-c15">
+    <pre class="detail-pre" id="c15-content">SET UP YOUR FIRST CLAUDE PROJECT (5 MINUTES)
+
+A Claude Project gives you a persistent system prompt + uploaded knowledge base for any topic.
+
+STEP 1: Go to claude.ai
+STEP 2: Click "Projects" in the left sidebar
+STEP 3: Click "New Project"
+STEP 4: Name it (e.g., "Content Creation", "Trading Assistant", "Business Operations")
+STEP 5: Click "Edit project instructions" and paste this starter template:
+
+---
+You are my [role] assistant, specialized in [your niche].
+
+My name is [your name]. My audience is [describe your audience]. My brand voice is [describe: casual/professional/bold/etc.].
+
+When I ask for content, always:
+- Match my voice and tone
+- Keep it concise and actionable
+- Format for [platform: Instagram / Twitter / email / etc.]
+- End with a CTA when appropriate
+
+When I ask for analysis, always:
+- Give me the bottom line first
+- Support with 2-3 key points
+- Suggest one next action
+---
+
+STEP 6: Upload any relevant files (your brand guide, past content, data files)
+STEP 7: Start chatting — Claude now has persistent context about you every session</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c15-content')">Copy Full Text</button>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="detail-c16">
+    <pre class="detail-pre" id="c16-content">CONTENT IN 15 MINUTES — MARCUS'S CHAIN PROMPT
+
+Use this exact sequence to turn one idea into multi-platform content:
+
+—— PROMPT 1: Core Idea Extraction ——
+"Here's my raw idea: [paste your thought, voice memo transcript, or rough notes]. Extract the single strongest insight from this. One sentence. Make it punchy."
+
+—— PROMPT 2: Tweet Thread ——
+"Turn that insight into a 5-tweet thread. Tweet 1 = hook that stops the scroll. Tweets 2-4 = the breakdown. Tweet 5 = the takeaway + CTA to follow me. My audience is [describe]. Casual, direct tone."
+
+—— PROMPT 3: Instagram Caption ——
+"Turn that same insight into an Instagram caption. 150 words max. Open with a bold statement — no fluff. 3-4 short paragraphs. End with a question to drive comments. Add 5 relevant hashtags at the bottom."
+
+—— PROMPT 4: Email ——
+"Write a short email newsletter section based on this insight. Subject line included. 200 words max. Conversational. End with one clear CTA."
+
+Total time: 15 minutes. Four pieces of content. One idea. That's the LYFE WITH MARCUS system.</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c16-content')">Copy Full Text</button>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="detail-c17">
+    <pre class="detail-pre" id="c17-content">BUILD YOUR FIRST CLAUDE SKILL — STARTER TEMPLATE
+
+Create a folder called content-formatter/ and add a SKILL.md file with this content:
+
+---
+name: content-formatter
+description: Formats raw notes, ideas, or transcripts into clean, ready-to-post social content. Use this skill whenever the user pastes raw notes, a voice memo transcript, bullet points, or an unformatted idea and wants it turned into Instagram captions, tweet threads, email sections, or LinkedIn posts. Always trigger this skill when content formatting or repurposing is involved.
+---
+
+# Content Formatter
+
+You are a content formatting specialist. Your job is to take raw, unformatted input and transform it into clean, platform-ready content.
+
+## Process
+
+1. Read the raw input carefully
+2. Identify the core insight or message
+3. Ask the user which platform(s) they need (if not specified)
+4. Format accordingly using the templates below
+
+## Output Templates
+
+### Instagram Caption
+[Bold hook — one sentence]
+
+[Body — 2-3 short paragraphs, conversational]
+
+[CTA question]
+
+#hashtag1 #hashtag2 #hashtag3 #hashtag4 #hashtag5
+
+### Tweet Thread
+Tweet 1: [Hook]
+Tweet 2: [Point 1]
+Tweet 3: [Point 2]
+Tweet 4: [Point 3]
+Tweet 5: [Takeaway + CTA]
+
+### Email Section
+Subject: [Subject line]
+
+[Opening — bold statement]
+[Body — 2 paragraphs max]
+[CTA]
+
+## Style Notes
+- Match Marcus's voice: direct, confident, no filler words
+- Every piece should have a clear point and a clear CTA
+- Short sentences. Active voice. Never start with "I"</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c17-content')">Copy Full Skill Template</button>
+    </div>
+  </div>
+
+  <div class="detail-panel" id="detail-c18">
+    <pre class="detail-pre" id="c18-content">THE DAILY AI HABIT — THE LYFE WITH MARCUS FRAMEWORK
+
+Every morning, Marcus asks one question:
+
+"What am I doing today that Claude could do faster or better?"
+
+Then he delegates it.
+
+THIS IS THE COMPOUND EFFECT OF AI:
+
+Week 1: You save 30 minutes/day on content drafts
+Week 2: You automate your trade journal analysis
+Week 3: You build a lead magnet in one session instead of one week
+Month 2: You've reclaimed 10+ hours per week
+Month 6: You're operating at a level that used to require a team
+
+THINGS TO DELEGATE TO CLAUDE TODAY:
+✓ First drafts of anything (emails, captions, scripts, proposals)
+✓ Research summaries (give Claude a topic, get a brief)
+✓ Data analysis (paste a spreadsheet, ask for insights)
+✓ Decision frameworks (describe a decision, ask Claude to lay out the tradeoffs)
+✓ Meeting prep (paste the agenda, ask Claude what questions to ask)
+✓ Code (describe what you need, get working code)
+
+THE RULE: Never do a task twice without asking Claude to help the second time. That's how you discover where your next Skill lives.
+
+Follow Marcus at lyfewithmarcus.com for more.</pre>
+    <div class="detail-copy-row">
+      <button class="copy-btn" onclick="copyText(event,'c18-content')">Copy Full Text</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-brand">LYFE WITH MARCUS</div>
+  <div class="footer-right">
+    <div class="footer-tagline">// Build smarter. Operate faster. Live better.</div>
+    <a class="footer-link" href="https://lyfewithmarcus.com" target="_blank">lyfewithmarcus.com →</a>
+  </div>
+</div>
+
+<script>
+  let activeSection = 'what-is-claude';
+  let openCard = null;
+
+  function showSection(id) {
+    document.querySelectorAll('.section-wrapper').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(el => el.classList.remove('active'));
+    document.getElementById('section-' + id).classList.add('active');
+    event.currentTarget.classList.add('active');
+    activeSection = id;
+    openCard = null;
+  }
+
+  function toggleDetail(cardId) {
+    const panel = document.getElementById('detail-' + cardId);
+    if (!panel) return;
+    if (openCard && openCard !== cardId) {
+      const prev = document.getElementById('detail-' + openCard);
+      if (prev) prev.classList.remove('open');
+    }
+    panel.classList.toggle('open');
+    openCard = panel.classList.contains('open') ? cardId : null;
+    if (panel.classList.contains('open')) {
+      setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+    }
+  }
+
+  function copyText(e, contentId) {
+    e.stopPropagation();
+    const el = document.getElementById(contentId);
+    if (!el) return;
+    const text = el.innerText || el.textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = e.currentTarget;
+      const orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = orig;
+        btn.classList.remove('copied');
+      }, 2000);
+    }).catch(() => {
+      const range = document.createRange();
+      range.selectNode(el);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+      window.getSelection().removeAllRanges();
+    });
+  }
+</script>
+</body>
+</html>
